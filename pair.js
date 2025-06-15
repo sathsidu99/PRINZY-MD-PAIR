@@ -104,7 +104,7 @@ This is your **unique Session ID**. Copy it and paste it into your `config.js` f
             const mg = `🛑 *Do not share this code to anyone* 🛑`;
             const dt = await RobinPairWeb.sendMessage(user_jid, {
               image: {
-                url: "https://files.catbox.moe/94iehy.jpeg",
+                url: "https://files.catbox.moe/gvyk58.jpeg",
               },
               caption: sid,
             });
