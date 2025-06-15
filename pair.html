@@ -1,227 +1,446 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PAIR CODE</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PRINZY MD</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
   <style>
+    /* Animated neon lines background */
     body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      font-family: 'Arial', sans-serif;
+      background-color: #0f0f18;
+      color: #0ff; /* neon cyan text */
       display: flex;
       justify-content: center;
       align-items: center;
+      position: relative;
+      flex-direction: column;
+    }
+
+    /* Canvas for animated lines */
+    #bgCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
       height: 100vh;
-      margin: 0;
-      background-color: #141414;
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
-      font-family: 'Arial', sans-serif;
-      color: #fff; /* Set the text color to white */
+      z-index: 0;
+      background-color: #0f0f18;
     }
 
     .container {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem;
+      width: 100%;
+      max-width: 400px;
+      box-sizing: border-box;
+    }
+
+    .box {
+      width: 100%;
+      padding: 30px 25px;
+      background: rgba(10, 255, 255, 0.1);
+      border-radius: 15px;
+      box-shadow:
+        0 0 15px #0ff,
+        0 0 40px #0ff,
+        0 0 60px #0ff;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      border: 2px solid #0ff;
+      transition: box-shadow 0.3s ease;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    .box {
-      width: 300px;
-      height: 330px;
-      padding: 20px;
-      position: relative;
-      text-align: center;
-      background-color: #a20000; /* Update background color */
-      border-radius: 10px;
-      transform: perspective(1000px) rotateY(0deg);
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
-      position: relative;
+    .box:hover {
+      box-shadow:
+        0 0 25px #0ff,
+        0 0 60px #0ff,
+        0 0 100px #0ff;
     }
 
-    #text {
-      color: #ffffff; /* Set the text color to black (#000) */
+    #text h3 {
+      color: #0ff;
+      margin-bottom: 8px;
+      font-weight: 700;
+      text-shadow: 0 0 8px #0ff;
     }
 
-    .input-container input {
-      color: #ffffff; /* Set the text color to black (#000) */
-    }
-
-    .centered-text {
-      color: #ffffff; /* Set the text color to black (#000) */
+    #text h6 {
+      color: #6ef9f9;
+      margin-bottom: 15px;
+      text-shadow: 0 0 6px #0ff;
     }
 
     .input-container {
       display: flex;
-      background: #ffffff; /* Update background color */
-      border-radius: 1rem;
+      background: #000a0a;
+      border-radius: 1.5rem;
       padding: 0.3rem;
-      gap: 0.3rem;
-      max-width: 300px;
+      gap: 0.4rem;
       width: 100%;
+      border: 1.5px solid #0ff;
+      box-shadow: 0 0 15px #0ff inset;
+      transition: box-shadow 0.3s ease;
+      margin-bottom: 20px;
     }
 
     .input-container input {
-      border-radius: 0.8rem 0 0 0.8rem;
-      background: #000000; /* Update background color */
-      width: 89%;
-      flex-basis: 75%;
+      flex-grow: 1;
       padding: 1rem;
       border: none;
-      border-left: 2px solid #075e54; /* Update border color */
-      color: #ecf0f1; /* Set text color to light grey */
-      transition: all 0.2s ease-in-out;
+      border-radius: 1.5rem;
+      background: #001515;
+      color: #0ff;
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-shadow: 0 0 6px #0ff;
+      transition: box-shadow 0.3s ease;
+      outline: none;
     }
 
     .input-container input:focus {
-      border-left: 2px solid #075e54;
-      outline: none;
-      box-shadow: inset 13px 13px 10px #075e54, inset -13px -13px 10px #2c3e50;
+      box-shadow:
+        0 0 16px #0ff,
+        0 0 32px #00ffff;
     }
 
-    .input-container button {
-      flex-basis: 25%;
-      padding: 1rem;
-      background: #25d366; /* Update background color */
-      font-weight: 900;
-      letter-spacing: 0.3rem;
-      text-transform: uppercase;
-      color: white;
-      border: none;
+    /* Neon glowing submit button */
+    #submit {
       width: 100%;
-      border-radius: 0 1rem 1rem 0;
-      transition: all 0.2s ease-in-out;
+      padding: 1rem 0;
+      background: linear-gradient(45deg, #00ffff, #00b3b3, #00ffff);
+      border: none;
+      border-radius: 1.8rem;
+      font-weight: 900;
+      letter-spacing: 0.15rem;
+      text-transform: uppercase;
+      color: #001515;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow:
+        0 0 10px #00ffff,
+        0 0 30px #00ffff,
+        0 0 40px #00ffff;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      text-shadow: 0 0 8px #00ffff;
     }
 
-    .input-container button:hover {
-      background: #2980b9; /* Update background color on hover */
+    #submit::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -60%;
+      width: 220%;
+      height: 100%;
+      background: linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0.25) 0%,
+        rgba(255, 255, 255, 0.55) 50%,
+        rgba(255, 255, 255, 0.25) 100%
+      );
+      transform: skewX(-30deg);
+      transition: left 0.6s ease;
+      z-index: 0;
+      filter: drop-shadow(0 0 5px #00ffff);
+    }
+
+    #submit:hover::before {
+      left: 120%;
+    }
+
+    #submit:hover {
+      color: #00ffff;
+      box-shadow:
+        0 0 20px #00ffff,
+        0 0 60px #00ffff,
+        0 0 100px #00ffff;
     }
 
     #waiting-message {
-      color: #ffffff; /* Set text color to light grey */
-      margin-top: 10px;
+      color: #0ff;
+      margin-top: 12px;
+      text-shadow: 0 0 10px #0ff;
     }
 
-    @media (max-width: 500px) {
-      .input-container {
-        flex-direction: column;
-      }
-
-      .input-container input {
-        border-radius: 0.8rem;
-      }
-
-      .input-container button {
-        padding: 1rem;
-        border-radius: 0.8rem;
-      }
-    }
-
-    .centered-text {
-      text-align: center;
-    }
-
-    /* Add styles for the loading spinner */
     #loading-spinner {
       display: none;
-      color: white;
+      color: #0ff;
       margin-top: 10px;
+      font-size: 1.8rem;
+      text-shadow: 0 0 12px #0ff;
     }
 
     .fa-spinner {
-      animation: spin 2s linear infinite;
+      animation: spin 1.8s linear infinite;
     }
 
     @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    main#pair {
+      margin-top: 25px;
+      color: #0ff;
+      font-weight: 700;
+      font-size: 1.1rem;
+      user-select: text;
+      cursor: pointer;
+      text-shadow: 0 0 10px #0ff;
+    }
+
+    main#pair:hover {
+      color: #00ffff;
+      text-shadow: 0 0 20px #00ffff;
+    }
+
+    /* Footer powered by text */
+    #footer {
+      color: #0ff;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1rem;
+      user-select: none;
+      margin: 15px 0 40px;
+      text-shadow: 0 0 8px #0ff;
+      z-index: 10;
+      font-family: 'Arial', sans-serif;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        max-width: 90vw;
+      }
+
+      .box {
+        padding: 25px 15px;
+      }
     }
   </style>
 </head>
+
 <body>
+  <!-- Canvas for animated neon lines background -->
+  <canvas id="bgCanvas"></canvas>
+
   <div class="container">
-    <div class="main">
-      <div class="box" id="box">
-        <div id="text">
-          <i class="fa fa-user"></i>
-          <p>
-            <h3 class="centered-text">Link Robin with phone number</h3>
-            <br>
-            <h6>🔢 Enter your number with country code. ROBIN WEB PAIR</h6>
-            <div class="input-container">
-              <input placeholder="+947421xxxxxx" type="number" id="number" placeholder="❗ Enter your phone number with country code, 𝐏𝐑𝐈𝐍𝐙𝐘 𝐌𝐃 WEB PAIR" name="">
-              <button id="submit">Submit ROBIN</button>
-            </div>
-            <!-- Add the loading spinner -->
-            <div id="loading-spinner">
-              <i class="fas fa-spinner fa-spin"></i>
-            </div>
-            <br>
-            <br>
-            <main id="pair"></main>
-          </p>
+    <div class="box" id="box">
+      <div id="text">
+        <i class="fa fa-user" style="color:#0ff;"></i>
+        <h3 class="centered-text">Link PRINZY MD with phone number</h3>
+        <h6>🔢 Enter your number with country code. PRINZY MD WEB PAIR</h6>
+
+        <div class="input-container">
+          <input
+            placeholder="+947421xxxxxx"
+            type="number"
+            id="number"
+            name=""
+            autocomplete="off"
+            spellcheck="false"
+          />
         </div>
+
+        <button id="submit">Submit PRINZY</button>
+
+        <!-- Loading spinner -->
+        <div id="loading-spinner">
+          <i class="fas fa-spinner fa-spin"></i>
+        </div>
+
+        <main id="pair"></main>
       </div>
     </div>
   </div>
-  <script
-  src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"
-  ></script>
-  <script>
-    
-    let a = document.getElementById("pair");
-    let b = document.getElementById("submit");
-    let c = document.getElementById("number");
-    let box = document.getElementById("box");
 
-    async function Copy() {
-      let text = document.getElementById("copy").innerText;
-      let obj = document.getElementById("copy");
-      await navigator.clipboard.writeText(obj.innerText.replace('CODE: ', ''));
-      obj.innerText = "✔️ COPIED";
-      obj.style = "color:blue;font-weight:bold";
-      obj.size = "5";
-      setTimeout(() => {
-        obj.innerText = text;
-        obj.style = "color:white;font-weight-bold";
-        obj.size = "5";
-      }, 500);
+  <div id="footer">POWERED BY STHASINDU AGRESARA 😊💗</div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
+  <script>
+    // Animated neon lines background canvas
+    const canvas = document.getElementById('bgCanvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let lines = [];
+
+    function resize() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
     }
 
-    b.addEventListener("click", async (e) => {
-      e.preventDefault();
-      if (!c.value) {
-        a.innerHTML = '<a style="color:black;font-weight:bold">❗Enter your whatsapp number with country code.</a><br><br>';
-      } else if (c.value.replace(/[^0-9]/g, "").length < 11) {
-        a.innerHTML = '<a style="color:black;font-weight:bold">❗Invalid number format. Please try again.</a><br><br>';
-      } else {
-        const bc = c.value.replace(/[^0-9]/g, "");
-        let bb = "";
-        let bbc = "";
-        const cc = bc.split('');
-        cc.map(a => {
-          bbc += a;
-          if (bbc.length == 3) {
-            bb += " " + a;
-          } else if (bbc.length == 8) {
-            bb += " " + a;
-          } else {
-            bb += a;
-          }
-        });
-        c.type = "text";
-        c.value = "+" + bb;
-        c.style = "color:white;font-size:20px";
-        // Show the loading spinner
-        document.getElementById("loading-spinner").style.display = "block";
-        a.innerHTML = ''; // Clear the previous content
-        let { data } = await axios(`/code?number=${bc}`);
-        let code = data.code || "❗ Service Unavailable";
-        a.innerHTML = '<font id="copy" onclick="Copy()" style="color:blue;font-weight:bold" size="5">CODE: <span style="color:black;font-weight:bold">' + code + '</span></font><br><br><br>';
-        // Hide the loading spinner when the process is complete
-        document.getElementById("loading-spinner").style.display = "none";
+    window.addEventListener('resize', resize);
+    resize();
+
+    // Neon line object
+    class NeonLine {
+      constructor(x, y, length, speed, direction, color, width) {
+        this.x = x;
+        this.y = y;
+        this.length = length;
+        this.speed = speed;
+        this.direction = direction;
+        this.color = color;
+        this.width = width;
       }
+
+      update() {
+        if (this.direction === 'horizontal') {
+          this.x += this.speed;
+          if (this.x - this.length > width) this.x = -this.length;
+        } else {
+          this.y += this.speed;
+          if (this.y - this.length > height) this.y = -this.length;
+        }
+      }
+
+      draw(ctx) {
+        const grad = ctx.createLinearGradient(
+          this.x,
+          this.y,
+          this.direction === 'horizontal' ? this.x + this.length : this.x,
+          this.direction === 'horizontal' ? this.y : this.y + this.length
+        );
+        grad.addColorStop(0, 'rgba(0,255,255,0)');
+        grad.addColorStop(0.5, this.color);
+        grad.addColorStop(1, 'rgba(0,255,255,0)');
+
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = this.width;
+        ctx.beginPath();
+        if (this.direction === 'horizontal') {
+          ctx.moveTo(this.x, this.y);
+          ctx.lineTo(this.x + this.length, this.y);
+        } else {
+          ctx.moveTo(this.x, this.y);
+          ctx.lineTo(this.x, this.y + this.length);
+        }
+        ctx.shadowColor = this.color;
+        ctx.shadowBlur = 10;
+        ctx.stroke();
+      }
+    }
+
+    // Initialize lines
+    function initLines() {
+      lines = [];
+      for (let i = 0; i < 40; i++) {
+        lines.push(
+          new NeonLine(
+            Math.random() * width,
+            Math.random() * height,
+            120 + Math.random() * 80,
+            0.5 + Math.random() * 0.7,
+            i % 2 === 0 ? 'horizontal' : 'vertical',
+            'rgba(0,255,255,0.7)',
+            1.5
+          )
+        );
+      }
+    }
+
+    initLines();
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      for (const line of lines) {
+        line.update();
+        line.draw(ctx);
+      }
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    // Main script logic
+
+    const a = document.getElementById('pair');
+    const b = document.getElementById('submit');
+    const c = document.getElementById('number');
+
+    const box = document.getElementById('box');
+
+    async function Copy() {
+      const obj = document.getElementById('copy');
+      const text = obj.innerText;
+      await navigator.clipboard.writeText(obj.innerText.replace('CODE: ', ''));
+      obj.innerText = '✔️ COPIED';
+      obj.style.color = '#0ff';
+      obj.style.fontWeight = 'bold';
+      setTimeout(() => {
+        obj.innerText = text;
+        obj.style.color = '#0ff';
+        obj.style.fontWeight = 'bold';
+      }, 1000);
+    }
+
+    b.addEventListener('click', async (e) => {
+      e.preventDefault();
+      a.innerHTML = '';
+      if (!c.value) {
+        a.innerHTML = '<a style="color:#0ff;font-weight:bold">❗Enter your whatsapp number with country code.</a><br><br>';
+        return;
+      }
+      if (c.value.replace(/[^0-9]/g, '').length < 11) {
+        a.innerHTML = '<a style="color:#0ff;font-weight:bold">❗Invalid number format. Please try again.</a><br><br>';
+        return;
+      }
+      const bc = c.value.replace(/[^0-9]/g, '');
+      let bb = '';
+      let bbc = '';
+      const cc = bc.split('');
+      cc.forEach((a) => {
+        bbc += a;
+        if (bbc.length == 3 || bbc.length == 8) {
+          bb += ' ' + a;
+        } else {
+          bb += a;
+        }
+      });
+      c.type = 'text';
+      c.value = '+' + bb;
+      c.style.color = '#0ff';
+      c.style.fontSize = '20px';
+
+      // Show spinner
+      document.getElementById('loading-spinner').style.display = 'block';
+      a.innerHTML = ''; // clear previous
+
+      try {
+        let { data } = await axios(`/code?number=${bc}`);
+        let code = data.code || '❗ Service Unavailable';
+        a.innerHTML =
+          '<font id="copy" onclick="Copy()" style="color:#0ff;font-weight:bold;cursor:pointer" size="5">CODE: <span style="color:#001515;font-weight:bold;background:#0ff;padding:2px 6px;border-radius:6px;">' +
+          code +
+          '</span></font><br><br><br>';
+      } catch (error) {
+        a.innerHTML = '<a style="color:#0ff;font-weight:bold">❗ Service Unavailable, try again later.</a><br><br>';
+      }
+      // Hide spinner
+      document.getElementById('loading-spinner').style.display = 'none';
     });
   </script>
 </body>
+
 </html>
