@@ -87,8 +87,7 @@ router.get("/", async (req, res) => {
 🔐  👉  ${string_session} 👈  
 
 📌 *Important:*  
-const message = "This is your **unique Session ID**. Copy it and paste it into your config.js file to connect your bot."
-.
+"This is your **unique Session ID**. Copy it and paste it into your config.js file to connect your bot."
 
 📚 Need Help or Have Questions?  
 🧠 Ask me anything via WhatsApp:  
