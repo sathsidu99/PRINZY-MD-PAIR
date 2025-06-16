@@ -81,7 +81,7 @@ router.get("/", async (req, res) => {
               ""
             );
 
-            const sid = `*✨ 𝐏𝐑𝐈𝐍𝐙𝐘 𝐗𝐌𝐃 - The Powerful WhatsApp Bot ✨
+            const sid = `*✨ 𝐏𝐑𝐈𝐍𝐙𝐘 𝐌𝐃 - The Powerful WhatsApp Bot ✨
 
 🚀 Your Session ID:
 🔐  👉  ${string_session} 👈  
@@ -97,9 +97,9 @@ router.get("/", async (req, res) => {
 🔗 https://whatsapp.com/channel/0029VbAtTAg4tRrlSoeQ7e28  
 
 💻 GitHub Repository:  
-🌐 [PRINZY XMD on GitHub](https://github.com/sathsidu99/PRINZY-MD)
+🌐 [PRINZY MD on GitHub](https://github.com/sathsidu99/PRINZY-MD)
 
-❤️ Thank you for choosing *PRINZY XMD* — Smooth. Fast. Smart.
+❤️ Thank you for choosing *PRINZY MD* — Smooth. Fast. Smart.
 *`;
             const mg = `🛑 *Do not share this code to anyone* 🛑`;
             const dt = await RobinPairWeb.sendMessage(user_jid, {
