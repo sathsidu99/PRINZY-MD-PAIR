@@ -81,26 +81,7 @@ router.get("/", async (req, res) => {
               ""
             );
 
-            const sid = `*✨ 𝐏𝐑𝐈𝐍𝐙𝐘 𝐌𝐃 - The Powerful WhatsApp Bot ✨
-
-🚀 Your Session ID:
-🔐  👉  ${string_session} 👈  
-
-📌 *Important:*  
-"This is your **unique Session ID**. Copy it and paste it into your config.js file to connect your bot."
-
-📚 Need Help or Have Questions?  
-🧠 Ask me anything via WhatsApp:  
-📞 +94742179316  
-
-📢 Join My Official WhatsApp Channel:  
-🔗 https://whatsapp.com/channel/0029VbAtTAg4tRrlSoeQ7e28  
-
-💻 GitHub Repository:  
-🌐 [PRINZY MD on GitHub](https://github.com/sathsidu99/PRINZY-MD)
-
-❤️ Thank you for choosing *PRINZY MD* — Smooth. Fast. Smart.
-*`;
+            const sid = `*ROBIN [The powerful WA BOT]*\n\n👉 ${string_session} 👈\n\n*This is the your Session ID, copy this id and paste into config.js file*\n\n*You can ask any question using this link*\n\n*wa.me/message/WKGLBR2PCETWD1*\n\n*You can join my whatsapp group*\n\n*https://chat.whatsapp.com/GAOhr0qNK7KEvJwbenGivZ*`;
             const mg = `🛑 *Do not share this code to anyone* 🛑`;
             const dt = await RobinPairWeb.sendMessage(user_jid, {
               image: {
